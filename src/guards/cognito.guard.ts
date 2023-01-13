@@ -16,24 +16,25 @@ export class CognitoGuard implements CanActivate {
     clientId: process.env.CLIENT_ID,
   });
 
-  canActivate(
+  async canActivate(
     context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
-    const request = context.switchToHttp().getRequest();
-    return this.checkToken(request.headers.authorization);
+  ) {
+    try{
+      const request = context.switchToHttp().getRequest();
+      const decodeToken = await this.checkToken(request.headers.authorization);
+      request.user = decodeToken;
+      return true;
+    } catch(error){
+      console.log('error:', error)
+      return error;
+    }
+
   }
 
   async checkToken(token: string) {
-    await this.verifier
+    return await this.verifier
       .verify(
         token, // the JWT as string
-      )
-      .then((payload) => {
-        return true;
-      })
-      .catch((err) => {
-        throw new UnauthorizedException();
-      });
-    return false;
+      );
   }
 }

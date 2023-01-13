@@ -21,25 +21,25 @@ export class UsersService {
     return prisma.user.findMany();
   }
 
-  findOne(id: number) {
-    //add token<=>id match
-    const prisma = new PrismaClient();
-    return prisma.user.findUnique({
-      where: { id },
-      include: {
-        posts: true,
-        postLikes: true,
-        postComment: true,
-        fromFriendship: true,
-        toFrienship: true,
-        blockedUsers: true,
-        blockedByUsers: true,
-        conversationsSent: true,
-        conversationsReceived: true,
-        conversationMessages: true,
-      },
-    });
-  }
+  // findOne(id: number) {
+  //   //add token<=>id match
+  //   const prisma = new PrismaClient();
+  //   return prisma.user.findUnique({
+  //     where: { id },
+  //     include: {
+  //       posts: true,
+  //       postLikes: true,
+  //       postComment: true,
+  //       fromFriendship: true,
+  //       toFrienship: true,
+  //       blockedUsers: true,
+  //       blockedByUsers: true,
+  //       conversationsSent: true,
+  //       conversationsReceived: true,
+  //       conversationMessages: true,
+  //     },
+  //   });
+  // }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     //add token<=>id match

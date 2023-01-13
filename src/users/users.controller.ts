@@ -19,10 +19,12 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @UseGuards(CognitoGuard)
+  // @UseGuards(CognitoGuard)
   @ApiBearerAuth('acces-token')
   @Post('/signup')
   create(@Body() createUserDto: CreateUserDto) {
+    console.log('createUserDto:', createUserDto)
+
     return this.usersService.create(createUserDto);
   }
 
@@ -31,10 +33,10 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.usersService.findOne(id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: number) {
+  //   return this.usersService.findOne(id);
+  // }
 
   @Patch(':id')
   update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto) {

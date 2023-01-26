@@ -8,9 +8,9 @@ import { CreatePostDto } from './dto/create-post.dto';
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
-  @Post('users/:id/posts')
-  create(@Param('id') id: string, @Body() createPostDto: CreatePostDto) {
-    return this.postsService.create(id, createPostDto);
+  @Post('users/:userId/posts')
+  create(@Param('userId') userId: string, @Body() createPostDto: CreatePostDto) {
+    return this.postsService.create(userId, createPostDto);
   }
 
   @Get('posts')

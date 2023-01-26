@@ -21,11 +21,11 @@ export class UsersService {
     return prisma.user.findMany();
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     //add token<=>id match
     const prisma = new PrismaClient();
     return prisma.user.findUnique({
-      where: { id },
+      where: { id: parseInt(id) },
       include: {
         posts: true,
         postLikes: true,
@@ -41,12 +41,12 @@ export class UsersService {
     });
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto) {
     //add token<=>id match
     const prisma = new PrismaClient();
     try {
       return await prisma.user.update({
-        where: { id },
+        where: { id: parseInt(id) },
         data: {
           email: updateUserDto.email,
           firstname: updateUserDto.firstname,
@@ -60,11 +60,11 @@ export class UsersService {
     }
   }
 
-  remove(id: number) {
+  remove(id: string) {
     //add token<=>id match
     const prisma = new PrismaClient();
     return prisma.user.delete({
-      where: { id },
+      where: { id: parseInt(id) },
     });
   }
 }

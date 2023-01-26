@@ -17,6 +17,11 @@ export class PostsService {
   findAll() {
     const prisma = new PrismaClient();
     return prisma.post.findMany({
+      orderBy: [
+        {
+          createdAt: 'desc',
+        }
+      ],
       include: {
         postLikes: true,
         postComments: true,

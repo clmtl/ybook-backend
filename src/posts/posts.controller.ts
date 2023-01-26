@@ -4,27 +4,27 @@ import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 
 @ApiTags('posts')
-@Controller('posts')
+@Controller()
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
-  @Post()
-  create(@Body() createPostDto: CreatePostDto) {
-    return this.postsService.create(createPostDto);
+  @Post('users/:userId/posts')
+  create(@Param('userId') userId: string, @Body() createPostDto: CreatePostDto) {
+    return this.postsService.create(userId, createPostDto);
   }
 
-  @Get()
+  @Get('posts')
   findAll() {
     return this.postsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: number) {
+  @Get('posts/:id')
+  findOne(@Param('id') id: string) {
     return this.postsService.findOne(id);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: number) {
+  @Delete('posts/:id')
+  remove(@Param('id') id: string) {
     return this.postsService.remove(id);
   }
 }

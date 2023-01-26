@@ -4,12 +4,12 @@ import { CreatePostDto } from './dto/create-post.dto';
 
 @Injectable()
 export class PostsService {
-  create(createPostDto: CreatePostDto) {
+  create(userId: string, createPostDto: CreatePostDto) {
     const prisma = new PrismaClient();
     return prisma.post.create({
       data: {
         htmlContent: createPostDto.htmlContent,
-        userId: createPostDto.userId,
+        userId: parseInt(userId),
       },
     });
   }
@@ -20,7 +20,7 @@ export class PostsService {
       orderBy: [
         {
           createdAt: 'desc',
-        }
+        },
       ],
       include: {
         postLikes: true,
@@ -31,10 +31,10 @@ export class PostsService {
     });
   }
 
-  findOne(postId: number) {
+  findOne(postId: string) {
     const prisma = new PrismaClient();
     return prisma.post.findUnique({
-      where: { id: postId },
+      where: { id: parseInt(postId) },
       include: {
         postLikes: true,
         postComments: true,
@@ -44,10 +44,10 @@ export class PostsService {
     });
   }
 
-  remove(postId: number) {
+  remove(postId: string) {
     const prisma = new PrismaClient();
     return prisma.post.delete({
-      where: { id: postId },
+      where: { id: parseInt(postId) },
     });
   }
 }

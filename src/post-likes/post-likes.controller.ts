@@ -9,13 +9,13 @@ import { PostLikesService } from './post-likes.service';
 export class PostLikesController {
   constructor(private readonly postLikesService: PostLikesService) {}
 
-  @Post('users/:userId/post-likes/:postId')
+  @Post('users/:userId/posts/:postId')
   create(@Param('userId') userId: string, @Param('postId') postId: string) {
     return this.postLikesService.create(userId, postId);
   }
 
   @Get('post-likes')
-  findAll() {
-    return this.postLikesService.findAll();
+  findAll(@Param('postId') postId: string) {
+    return this.postLikesService.findAll(postId);
   }
 }

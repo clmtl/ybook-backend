@@ -13,8 +13,8 @@ export class PostLikesService {
     });
   }
 
-  findAll() {
+  findAll(postId: string) {
     const prisma = new PrismaClient();
-    return prisma.postLike.findMany();
+    return prisma.postLike.findMany({ where: { postId: parseInt(postId) } });
   }
 }

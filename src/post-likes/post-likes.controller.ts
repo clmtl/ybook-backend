@@ -1,7 +1,5 @@
 import { Controller, Post, Param, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { get } from 'http';
-import { identity } from 'rxjs';
 import { PostLikesService } from './post-likes.service';
 
 @ApiTags('post-likes')
@@ -14,7 +12,7 @@ export class PostLikesController {
     return this.postLikesService.create(userId, postId);
   }
 
-  @Get('post-likes')
+  @Get('posts/:postId/likes')
   findAll(@Param('postId') postId: string) {
     return this.postLikesService.findAll(postId);
   }

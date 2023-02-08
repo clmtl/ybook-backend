@@ -1,4 +1,4 @@
-import { Controller, Post, Param, Get } from '@nestjs/common';
+import { Controller, Post, Param, Get, Delete } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { PostLikesService } from './post-likes.service';
 
@@ -10,6 +10,11 @@ export class PostLikesController {
   @Post('users/:userId/posts/:postId/likes')
   create(@Param('userId') userId: string, @Param('postId') postId: string) {
     return this.postLikesService.create(userId, postId);
+  }
+
+  @Delete('users/:userId/posts/:postId/likes')
+  remove(@Param('userId') userId: string, @Param('postId') postId: string) {
+    return this.postLikesService.remove(userId, postId);
   }
 
   @Get('posts/:postId/likes')

@@ -17,4 +17,14 @@ export class PostLikesService {
     const prisma = new PrismaClient();
     return prisma.postLike.findMany({ where: { postId: parseInt(postId) } });
   }
+
+  remove(userId: string, postId: string) {
+    const prisma = new PrismaClient();
+    return prisma.postLike.deleteMany({
+      where: {
+        userId: parseInt(userId),
+        postId: parseInt(postId),
+      },
+    });
+  }
 }
